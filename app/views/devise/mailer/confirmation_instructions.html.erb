@@ -1,0 +1,4 @@
+<h2 class="text-3xl font-bold text-gray-800 mb-6">Reenviar instruções de desbloqueio</h2>
+
+<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: "max-w-md mx-auto bg-white p-8 rounded-lg shadow-md" }) do |f| %>
+<%= render "devise/shared/error_messages", resource: resource %>
