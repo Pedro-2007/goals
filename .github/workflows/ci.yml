@@ -22,6 +22,28 @@ jobs:
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
 
+      - name: Instala dependências
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git curl docker.io sshpass
+
+      - name: Configura chave SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H goals.pedrorl.online >> ~/.ssh/known_hosts
+
+      - name: Instala Kamal
+        run: |
+          gem install kamal
+
+      - name: Kamal setup
+        run: kamal setup
+
+      - name: Kamal deploy
+        run: kamal deploy
+
   scan_js:
     runs-on: ubuntu-latest
 
